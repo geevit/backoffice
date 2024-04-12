@@ -1,20 +1,52 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
-  theme: {
-    extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
+    content: [
+        "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+        "./components/**/*.{js,ts,jsx,tsx,mdx}",
+        "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    ],
+    theme: {
+        colors: {
+            leaf: "#114232",
+            "leaf-hover": "#0e3a2b",
+            black: "#000000",
+            white: "#ffffff",
+            gray: "#8d8d8d",
+        },
+        fontFamily: {
+            rg: ["var(--font-rebond)"],
+            "rg-bold": ["var(--font-rebond-bold)"],
+            "rg-italic": ["var(--font-rebond-italic)"],
+            "rg-bold-italic": ["var(--font-rebond-bold-italic)"],
+            "rg-light": ["var(--font-rebond-light)"],
+            "rg-light-italic": ["var(--font-rebond-light-italic)"],
+            "rg-medium": ["var(--font-rebond-medium)"],
+            "rg-medium-italic": ["var(--font-rebond-medium-italic)"],
+            "rg-semi-bold": ["var(--font-rebond-semi-bold)"],
+            "rg-semi-bold-italic": ["var(--font-rebond-semi-bold-italic)"],
+            "rg-thin": ["var(--font-rebond-thin)"],
+            "rg-thin-italic": ["var(--font-rebond-thin-italic)"],
+            "rg-hairline": ["var(--font-rebond-hairline)"],
+            "rg-hairline-italic": ["var(--font-rebond-hairline-italic)"],
+            "rg-extra-light": ["var(--font-rebond-extra-light)"],
+            "rg-extra-light-italic": ["var(--font-rebond-extra-light-italic)"],
+            "rg-extra-bold": ["var(--font-rebond-extra-bold)"],
+            "rg-extra-bold-italic": ["var(--font-rebond-extra-bold-italic)"],
+            ro: ["var(--font-roobert-regular)"],
+            "ro-bold": ["var(--font-roobert-bold)"],
+            "ro-italic": ["var(--font-roobert-medium-italic)"],
+            "ro-bold-italic": ["var(--font-roobert-bold-italic)"],
+            "ro-semibold": ["var(--font-roobert-semibold)"],
+            "ro-semibold-italic": ["var(--font-roobert-semibold-italic)"],
+            "ro-medium": ["var(--font-roobert-medium)"],
+            "ro-medium-italic": ["var(--font-roobert-medium-italic)"],
+            "ro-light": ["var(--font-roobert-light)"],
+            "ro-light-italic": ["var(--font-roobert-light-italic)"],
+            "ro-heavy": ["var(--font-roobert-heavy)"],
+            "ro-heavy-italic": ["var(--font-roobert-heavy-italic)"],
+        },
     },
-  },
-  plugins: [],
+    plugins: [],
 };
 export default config;
