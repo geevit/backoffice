@@ -10,7 +10,7 @@ export const NavBarButton: FC<NavBarButtonProps> = ({
     selected = false,
 }: NavBarButtonProps) => {
     return (
-        <div className="hover:bg-leaf-hover py-2.5 px-4 rounded-lg cursor-pointer flex gap-4 items-center">
+        <div className="hover:bg-leaf-hover py-2.5 px-6 rounded-lg cursor-pointer flex gap-3 items-center">
             <img
                 src={`https://cdn.geev.it/images/${title}.svg`}
                 alt="dashboard"
