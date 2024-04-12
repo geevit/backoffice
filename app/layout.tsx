@@ -62,19 +62,19 @@ const rebondHairlineItalic = localFont({
     variable: "--font-rebond-hairline-italic",
 });
 const rebondExtraLight = localFont({
-    src: "../public/fonts/Rebond Grotesque ExtraLight.otf",
+    src: "../public/fonts/Rebond Grotesque Extralight.otf",
     variable: "--font-rebond-extra-light",
 });
 const rebondExtraLightItalic = localFont({
-    src: "../public/fonts/Rebond Grotesque ExtraLight Italic.otf",
+    src: "../public/fonts/Rebond Grotesque Extralight Italic.otf",
     variable: "--font-rebond-extra-light-italic",
 });
 const rebondExtraBold = localFont({
-    src: "../public/fonts/Rebond Grotesque ExtraBold.otf",
+    src: "../public/fonts/Rebond Grotesque Extrabold.otf",
     variable: "--font-rebond-extra-bold",
 });
 const rebondExtraBoldItalic = localFont({
-    src: "../public/fonts/Rebond Grotesque ExtraBold Italic.otf",
+    src: "../public/fonts/Rebond Grotesque Extrabold Italic.otf",
     variable: "--font-rebond-extra-bold-italic",
 });
 const roobertRegular = localFont({
