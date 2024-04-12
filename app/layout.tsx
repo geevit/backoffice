@@ -38,7 +38,7 @@ const rebondMediumItalic = localFont({
     variable: "--font-rebond-medium-italic",
 });
 const rebondSemiBold = localFont({
-    src: "../public/fonts/Rebond Grotesque SemiBbld.otf",
+    src: "../public/fonts/Rebond Grotesque Semibold.otf",
     variable: "--font-rebond-semi-bold",
 });
 const rebondSemiBoldItalic = localFont({
