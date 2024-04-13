@@ -1,3 +1,4 @@
+import { Navbar } from "@geevit/components";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
@@ -173,7 +174,12 @@ export default function RootLayout({
             ${roobertHeavyItalic.variable}
 
             `}>
-                {children}
+                <div className="bg-leaf flex w-screen h-screen p-2">
+                    <Navbar />
+                    <div className="w-[85%] bg-white rounded-xl p-4">
+                        {children}
+                    </div>
+                </div>
             </body>
         </html>
     );
