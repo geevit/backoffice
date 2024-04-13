@@ -12,7 +12,7 @@ import {
 export const NavBarList = () => {
     return (
         <div className="flex flex-col gap-2 flex-1">
-            <NavBarItem title="Dashboard" selected Icon={LayoutDashboard} />
+            <NavBarItem title="Dashboard" Icon={LayoutDashboard} />
             <NavBarItem
                 title="Statistiques"
                 Icon={BarChart2}
