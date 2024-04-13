@@ -40,7 +40,6 @@ export default function CardsPage() {
         });
     };
     useEffect(() => {
-        console.log(searchTerm);
         refreshData();
     }, [page, selectedFilter, searchTerm]);
     return (

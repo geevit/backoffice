@@ -10,7 +10,8 @@ export const PaginatedMeta = ({ meta, setPage }: PaginatedMetaProps) => {
     return (
         <div className="w-full flex justify-end mt-3 items-center gap-6">
             <p className="text-leaf font-ro-semibold text-sm">
-                {(meta.page - 1) * meta.take + 1} - {meta.page * meta.take} sur{" "}
+                {(meta.page - 1) * meta.take + 1} -{" "}
+                {meta.hasNextPage ? meta.page * meta.take : meta.itemsCount} sur{" "}
                 {meta.itemsCount}
             </p>
             <div className="flex rounded-xl overflow-hidden select-none">
