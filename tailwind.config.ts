@@ -12,7 +12,8 @@ const config: Config = {
             "leaf-hover": "#0e3a2b",
             black: "#000000",
             white: "#ffffff",
-            gray: "#8d8d8d",
+            gray: "#EDEEEC",
+            "white-hover": "#FAFAFA",
         },
         fontFamily: {
             rg: ["var(--font-rebond)"],
@@ -37,7 +38,7 @@ const config: Config = {
             "ro-bold": ["var(--font-roobert-bold)"],
             "ro-italic": ["var(--font-roobert-medium-italic)"],
             "ro-bold-italic": ["var(--font-roobert-bold-italic)"],
-            "ro-semibold": ["var(--font-roobert-semibold)"],
+            "ro-semibold": ["var(--font-roobert-semi-bold)"],
             "ro-semibold-italic": ["var(--font-roobert-semibold-italic)"],
             "ro-medium": ["var(--font-roobert-medium)"],
             "ro-medium-italic": ["var(--font-roobert-medium-italic)"],

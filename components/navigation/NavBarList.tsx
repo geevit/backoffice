@@ -18,7 +18,11 @@ export const NavBarList = () => {
                 Icon={BarChart2}
                 href="/statistics"
             />
-            <NavBarItem title="Mes ventes" Icon={Percent} href="/sales" />
+            <NavBarItem
+                title="Mes opérations"
+                Icon={Percent}
+                href="/operations"
+            />
             <NavBarItem title="Mes cartes" Icon={CreditCard} href="/cards" />
             <NavBarItem title="Mon commerce" Icon={Store} href="/shop" />
             <NavBarItem title="Mon profil" Icon={UserRound} href="/profile" />

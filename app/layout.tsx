@@ -176,7 +176,7 @@ export default function RootLayout({
             `}>
                 <div className="bg-leaf flex w-screen h-screen p-2">
                     <Navbar />
-                    <div className="w-[85%] bg-white rounded-xl p-4">
+                    <div className="w-[85%] bg-gray rounded-xl p-6">
                         {children}
                     </div>
                 </div>

@@ -7,8 +7,6 @@ export interface NavBarButtonProps {
     title: string;
     Icon?: FC<any>;
     href?: string;
-    activePage?: string;
-    setActivePage: (activePage: string) => void;
 }
 
 export const NavBarItem: FC<NavBarButtonProps> = ({
