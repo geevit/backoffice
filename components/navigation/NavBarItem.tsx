@@ -1,12 +1,14 @@
 "use client";
-import { useActivePageStore } from "@geevit/store/activePage.store";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { FC } from "react";
 
 export interface NavBarButtonProps {
     title: string;
     Icon?: FC<any>;
     href?: string;
+    activePage?: string;
+    setActivePage: (activePage: string) => void;
 }
 
 export const NavBarItem: FC<NavBarButtonProps> = ({
@@ -14,24 +16,23 @@ export const NavBarItem: FC<NavBarButtonProps> = ({
     Icon,
     href = "/",
 }: NavBarButtonProps) => {
-    const { activePage, setActivePage } = useActivePageStore();
+    const pathname = usePathname();
     return (
         <Link
-            onClick={() => setActivePage(title)}
+            onClick={() => {}}
             href={href}
-            passHref
             className="hover:bg-leaf-hover py-2.5 px-6 rounded-lg cursor-pointer flex gap-3 items-center w-full">
             {Icon && (
                 <Icon
                     size={22}
                     className={
-                        activePage === title ? "text-white" : "text-white/70"
+                        pathname === href ? "text-white" : "text-white/70"
                     }
                 />
             )}
             <p
                 className={`text-md ${
-                    activePage === title
+                    pathname === href
                         ? "text-white font-rg-medium"
                         : "text-white/70 font-rg"
                 }`}>
