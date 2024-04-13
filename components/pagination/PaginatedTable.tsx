@@ -1,6 +1,5 @@
 import { DataQuery } from "@geevit/types";
 import { PaginatedHeader } from "./PaginatedHeader";
-import { PaginatedMeta } from "./PaginatedMeta";
 import { PaginatedRow } from "./PaginatedRow";
 
 export interface PaginatedTableProps {
