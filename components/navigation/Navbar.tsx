@@ -1,7 +1,9 @@
 "use client";
 import { FC } from "react";
-import { GeevitLogo, NavBarItem, NavBarList } from "@geevit/components";
 import { Bolt } from "lucide-react";
+import { GeevitLogo } from "../ui/GeevitLogo";
+import { NavBarItem } from "./NavBarItem";
+import { NavBarList } from "./NavBarList";
 
 export const Navbar: FC = () => {
     return (

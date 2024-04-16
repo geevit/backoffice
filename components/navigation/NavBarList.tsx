@@ -1,5 +1,4 @@
 "use client";
-import { NavBarItem } from "@geevit/components/";
 import {
     BarChart2,
     CreditCard,
@@ -8,6 +7,7 @@ import {
     Store,
     UserRound,
 } from "lucide-react";
+import { NavBarItem } from "./NavBarItem";
 
 export const NavBarList = () => {
     return (

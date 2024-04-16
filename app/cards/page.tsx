@@ -1,8 +1,9 @@
 "use client";
 
-import { PageTitle, SectionTitle } from "@geevit/components";
 import { Paginated } from "@geevit/components/pagination/Paginated";
 import { FastActionButton } from "@geevit/components/ui/FastActionButton";
+import { PageTitle } from "@geevit/components/ui/PageTitle";
+import { SectionTitle } from "@geevit/components/ui/SectionTitle";
 import {
     CardEntity,
     CardFilter,
