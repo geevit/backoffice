@@ -5,5 +5,5 @@ export interface PageTitleProps {
 }
 
 export const PageTitle = ({ title }: PageTitleProps) => {
-    return <div className="font-rg-bold text-3xl text-leaf">{title}</div>;
+    return <h1 className="font-rg-bold text-3xl text-leaf">{title}</h1>;
 };

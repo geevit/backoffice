@@ -19,13 +19,11 @@ export const PaginatedRow = ({
     hrefKey,
 }: PaginatedRowProps) => {
     const locationOnClick: string = data[hrefKey as keyof typeof data];
-    console.log(data);
     return (
         <Link
             className="w-full flex bg-white hover:bg-white-hover cursor-pointer"
             href={href + locationOnClick}>
             {headers.map((header) => {
-                console.log(header);
                 return (
                     <div
                         key={header}

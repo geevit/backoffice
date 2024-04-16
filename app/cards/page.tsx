@@ -4,6 +4,7 @@ import { Paginated } from "@geevit/components/pagination/Paginated";
 import { FastActionButton } from "@geevit/components/ui/FastActionButton";
 import { PageTitle } from "@geevit/components/ui/PageTitle";
 import { SectionTitle } from "@geevit/components/ui/SectionTitle";
+import { EncaissementModal } from "@geevit/src/components/modals/EncaissementModal";
 import {
     CardEntity,
     CardFilter,
@@ -48,7 +49,7 @@ export default function CardsPage() {
             <PageTitle title="Gestion des cartes" />
             <SectionTitle title="Actions rapides" />
             <div className="w-full flex gap-4">
-                <FastActionButton title="Encaissement" />
+                <EncaissementModal />
                 <FastActionButton title="Nouvelle carte" />
                 <FastActionButton title="Bloquer une carte" />
                 <FastActionButton title="Réception de cartes" />
