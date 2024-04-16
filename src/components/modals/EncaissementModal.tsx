@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 export const EncaissementModal = () => {
     const [cardData, setCardData] = useState<CardEntity>();
+    const [error, setError] = useState<string>("");
 
     const getCard = async (cardNumber: string) => {
         const config = {
@@ -33,12 +34,18 @@ export const EncaissementModal = () => {
         );
         url.searchParams.append("cardNumber", cardNumber);
         return await fetch(url, config).then(async (res) => {
+            if (res.status === 404) {
+                setCardData(undefined);
+                setError("Aucune carte trouvée.");
+                return;
+            }
             const data: CardEntity = await res.json();
             setCardData(data);
         });
     };
 
     const handleChange = (e: any) => {
+        setError("");
         const value = e.target.value;
         if (value.length === 16) {
             getCard(value);
@@ -96,15 +103,18 @@ export const EncaissementModal = () => {
                                 Icon={KeySquare}
                             />
                         </div>
-                        {/* <div className="bg-red-200 px-5 py-3 rounded-xl text-red-900 font-ro-medium flex items-center">
-                            <TriangleAlert className="mr-3 size-4" />
-                            Le montant ne peut pas excéder le solde de la carte.
-                        </div> */}
+
                         <button className="h-10 w-full bg-leaf rounded-xl px-4 text-sm font-ro-semibold text-white focus:outline-none focus:ring-1 focus:ring-leaf focus:border-transparent transition-all duration-200 ease-in-out">
                             <p className="text-white font-ro-medium">
                                 Encaisser 10€
                             </p>
                         </button>
+                    </div>
+                )}
+                {error && (
+                    <div className="bg-red-200 px-5 py-3 rounded-xl text-red-900 font-ro-medium flex items-center">
+                        <TriangleAlert className="mr-3 size-4" />
+                        {error}
                     </div>
                 )}
             </DialogContent>
