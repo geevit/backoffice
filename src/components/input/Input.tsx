@@ -3,9 +3,16 @@ import React from "react";
 interface InputProps {
     placeholder?: string;
     Icon?: React.FC<any>;
+    name?: string;
+    defaultValue?: string;
 }
 
-export const Input = ({ placeholder = "", Icon }: InputProps) => {
+export const Input = ({
+    placeholder = "",
+    Icon,
+    name = "null",
+    defaultValue = "",
+}: InputProps) => {
     return (
         <div className="relative">
             <input
@@ -14,6 +21,8 @@ export const Input = ({ placeholder = "", Icon }: InputProps) => {
                     Icon && "pl-10"
                 }`}
                 placeholder={placeholder || "Rechercher un numéro..."}
+                name={name}
+                defaultValue={defaultValue}
             />
             {Icon && (
                 <Icon className="absolute left-4 top-3 text-leaf size-4" />

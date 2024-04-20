@@ -3,6 +3,7 @@ import { PaginatedTable } from "./PaginatedTable";
 import { PaginatedMeta } from "./PaginatedMeta";
 import { PaginatedFilter } from "./PaginatedFilter";
 import { PaginatedSearchBar } from "./PaginatedSearchBar";
+import { PaginatedOrder } from "./PaginatedOrder";
 
 export interface PaginatedProps {
     headers: string[];
@@ -18,6 +19,7 @@ export interface PaginatedProps {
     setSearchTerm: (searchTerm: string) => void;
     setPage: (page: number) => void;
     setSelectedFilter: (filter: string) => void;
+    setOrderBy: (orderBy: string) => void;
 }
 
 export const Paginated = ({
@@ -34,19 +36,30 @@ export const Paginated = ({
     selectedFilter,
     searchTerm,
     setSearchTerm,
+    setOrderBy,
 }: PaginatedProps) => {
     return (
         <div className="w-full">
-            <div className="flex justify-between">
+            <div className="flex justify-between items-start">
                 <PaginatedFilter
                     filters={filters}
                     setSelectedFilter={setSelectedFilter}
                     selectedFilter={selectedFilter}
                 />
-                <PaginatedSearchBar
-                    searchTerm={searchTerm}
-                    setSearchTerm={setSearchTerm}
-                />
+                <div className="flex items-center gap-2">
+                    <PaginatedSearchBar
+                        searchTerm={searchTerm}
+                        setSearchTerm={setSearchTerm}
+                    />
+                    <PaginatedOrder
+                        values={{
+                            Date: "expirationDate",
+                            "Numéro de carte": "cardNumber",
+                            "Solde restant": "currentBalance",
+                        }}
+                        setOrderBy={setOrderBy}
+                    />
+                </div>
             </div>
             <PaginatedTable
                 headers={headers}

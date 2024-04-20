@@ -18,7 +18,7 @@ export const PaginatedMeta = ({ meta, setPage }: PaginatedMetaProps) => {
                 <div
                     onClick={() => {
                         if (meta.hasPreviousPage) {
-                            setPage(meta.page - 1);
+                            setPage(+meta.page - 1);
                         }
                     }}
                     className="bg-white h-10 w-8 flex items-center justify-center cursor-pointer hover:bg-white-hover transition-all duration-200 ease-in-out">
@@ -26,19 +26,19 @@ export const PaginatedMeta = ({ meta, setPage }: PaginatedMetaProps) => {
                 </div>
                 {!meta.hasNextPage && meta.itemsCount > meta.take * 3 && (
                     <div
-                        onClick={() => setPage(meta.page - 2)}
+                        onClick={() => setPage(+meta.page - 2)}
                         className="bg-white h-10 w-8 flex items-center justify-center cursor-pointer hover:bg-white-hover transition-all duration-200 ease-in-out">
                         <p className="text-leaf font-ro-semibold">
-                            {meta.page - 2}
+                            {+meta.page - 2}
                         </p>
                     </div>
                 )}
                 {meta.hasPreviousPage && (
                     <div
-                        onClick={() => setPage(meta.page - 1)}
+                        onClick={() => setPage(+meta.page - 1)}
                         className="bg-white h-10 w-8 flex items-center justify-center cursor-pointer hover:bg-white-hover transition-all duration-200 ease-in-out">
                         <p className="text-leaf font-ro-semibold">
-                            {meta.page - 1}
+                            {+meta.page - 1}
                         </p>
                     </div>
                 )}
@@ -48,27 +48,27 @@ export const PaginatedMeta = ({ meta, setPage }: PaginatedMetaProps) => {
                 </div>
                 {meta.hasNextPage && (
                     <div
-                        onClick={() => setPage(meta.page + 1)}
+                        onClick={() => setPage(+meta.page + 1)}
                         className="bg-white h-10 w-8 flex items-center justify-center cursor-pointer hover:bg-white-hover transition-all duration-200 ease-in-out">
                         <p className="text-leaf font-ro-semibold">
-                            {meta.page + 1}
+                            {+meta.page + 1}
                         </p>
                     </div>
                 )}
                 {!meta.hasPreviousPage &&
                     (meta.page + 2) * meta.take < meta.itemsCount && (
                         <div
-                            onClick={() => setPage(meta.page + 2)}
+                            onClick={() => setPage(+meta.page + 2)}
                             className="bg-white h-10 w-8 flex items-center justify-center cursor-pointer hover:bg-white-hover transition-all duration-200 ease-in-out">
                             <p className="text-leaf font-ro-semibold">
-                                {meta.page + 2}
+                                {+meta.page + 2}
                             </p>
                         </div>
                     )}
                 <div
                     onClick={() => {
                         if (meta.hasNextPage) {
-                            setPage(meta.page + 1);
+                            setPage(+meta.page + 1);
                         }
                     }}
                     className="bg-white h-10 w-8 flex items-center justify-center cursor-pointer hover:bg-white-hover transition-all duration-200 ease-in-out">

@@ -10,6 +10,7 @@ export interface PaginatedTableProps {
     href: string;
     hrefKey: string;
     dataQuery: DataQuery<any>;
+    className?: string;
 }
 
 export const PaginatedTable = ({
@@ -20,9 +21,13 @@ export const PaginatedTable = ({
     href,
     hrefKey,
     dataQuery,
+    className,
 }: PaginatedTableProps) => {
     return (
-        <div className="w-full rounded-2xl overflow-hidden h-[528px] bg-white">
+        <div
+            className={`w-full rounded-2xl overflow-hidden bg-white ${
+                className || ""
+            }`}>
             <PaginatedHeader headers={displayHeaders} />
             {dataQuery.data.map((row, index) => {
                 return (
@@ -38,7 +43,7 @@ export const PaginatedTable = ({
                 );
             })}
             {dataQuery.data.length === 0 && (
-                <div className="flex justify-center items-center h-full">
+                <div className="flex justify-center items-center h-full py-10">
                     <p className="text-leaf/70 font-ro-medium ">
                         Aucun résultat
                     </p>

@@ -13,21 +13,22 @@ import { CardEntity } from "@geevit/types";
 import { Euro, KeySquare, Search, TriangleAlert } from "lucide-react";
 import { toast } from "sonner";
 
-export interface EncaissementModalProps {
+export interface BlocageModalProps {
     refreshData: () => void;
     defaultCardNumber?: string;
     disabled?: boolean;
+    title?: string;
 }
 
-export const EncaissementModal = ({
+export const BlocageModal = ({
     refreshData,
     defaultCardNumber = undefined,
     disabled,
-}: EncaissementModalProps) => {
+    title,
+}: BlocageModalProps) => {
     const [open, setOpen] = useState<boolean>(false);
     const [cardData, setCardData] = useState<CardEntity>();
     const [error, setError] = useState<string>("");
-    const [amount, setAmount] = useState<number>(0);
     const [cardExists, setCardExists] = useState<boolean>(false);
     const [cardNumber, setCardNumber] = useState<string>(
         defaultCardNumber || ""
@@ -73,16 +74,16 @@ export const EncaissementModal = ({
                 return;
             }
             const data: CardEntity = await res.json();
-            if (data.cardStatus !== "ACTIVE") {
+            if (data.cardStatus === "BLOCKED") {
                 setCardData(undefined);
-                setError("La carte n'est pas active.");
+                setError("La carte est déjà bloquée.");
                 return;
             }
             setCardData(data);
         });
     };
 
-    const submitCollect = async (e: any) => {
+    const submitBlock = async (e: any) => {
         e.preventDefault();
         const config = {
             method: "PATCH",
@@ -90,22 +91,16 @@ export const EncaissementModal = ({
                 "Content-Type": "application/json",
             },
         } as RequestInit;
-        const url = new URL(
-            `${process.env.NEXT_PUBLIC_API_URL}/operation/collect`
-        );
+        const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/card/block`);
         url.searchParams.append("cardNumber", cardNumber);
-        url.searchParams.append("amount", amount.toString());
         url.searchParams.append("cardCode", cardCode);
         return await fetch(url, config).then(async (res) => {
             if (res.status === 200) {
-                toast.success(
-                    `Encaissement de ${amount} € effectué avec succès.`
-                );
+                toast.success(`Carte bloquée avec succès.`);
                 setCardData(undefined);
                 setCardExists(false);
                 setError("");
                 setOpen(false);
-                setAmount(0);
                 refreshData();
             }
         });
@@ -134,12 +129,6 @@ export const EncaissementModal = ({
                 setCardData(undefined);
             }
         }
-        if (name === "amount") {
-            setAmount(parseFloat(value));
-            if (value > (cardData?.currentBalance || 0)) {
-                setError("Le montant est supérieur au solde de la carte.");
-            }
-        }
     };
 
     if (defaultCardNumber) {
@@ -155,21 +144,21 @@ export const EncaissementModal = ({
                     setCardExists(false);
                     setError("");
                 }}
-                className="font-ro-semibold text-white bg-leaf flex-1 h-14 flex items-center justify-center rounded-2xl cursor-pointer disabled:cursor-default disabled:bg-leaf/70 hover:bg-leaf-hover transition-all duration-300 ease-in-out">
-                Encaissement
+                className="font-ro-semibold text-white bg-bordeaux disabled:bg-bordeaux/70 disabled:cursor-default flex-1 h-14 flex items-center justify-center rounded-2xl cursor-pointer hover:bg-bordeaux-hover transition-all duration-300 ease-in-out">
+                {title ? title : "Bloquer la carte"}
             </DialogTrigger>
             <DialogContent className="bg-gray">
                 <DialogHeader className="text-leaf">
-                    <DialogTitle>Encaissement {cardExists}</DialogTitle>
+                    <DialogTitle>Blocage {cardExists}</DialogTitle>
 
                     <DialogDescription className="text-leaf/70">
-                        Encaissez un montant sur une carte
+                        {title ? title : "Bloquer la carte"}
                     </DialogDescription>
                 </DialogHeader>
                 <form
                     onChange={handleChange}
                     className="flex flex-col gap-4"
-                    onSubmit={submitCollect}>
+                    onSubmit={submitBlock}>
                     <Input
                         placeholder="Rechercher un numéro..."
                         Icon={Search}
@@ -197,7 +186,7 @@ export const EncaissementModal = ({
                                 </div>
                                 <div className="flex-1">
                                     <p className="font-ro-bold text-leaf">
-                                        Montant disponible
+                                        Montant restant
                                     </p>
                                     <p className="font-ro text-leaf">
                                         {cardData.currentBalance?.toFixed(2) ||
@@ -206,13 +195,14 @@ export const EncaissementModal = ({
                                     </p>
                                 </div>
                             </div>
-                            <div className="flex flex-col gap-2 mt-4">
-                                <Input
-                                    placeholder="Montant"
-                                    Icon={Euro}
-                                    name="amount"
-                                />
-                            </div>
+                            {cardData.currentBalance > 0 && (
+                                <div className="bg-red-200 px-5 py-3 rounded-xl text-red-900 font-ro-medium flex items-center">
+                                    <TriangleAlert className="mr-3 size-4" />
+                                    Attention, cette carte contient du solde et
+                                    son blocage est irréversible.
+                                    <br />
+                                </div>
+                            )}
                             {error && cardData && (
                                 <div className="bg-red-200 px-5 py-3 rounded-xl text-red-900 font-ro-medium flex items-center">
                                     <TriangleAlert className="mr-3 size-4" />
@@ -221,11 +211,9 @@ export const EncaissementModal = ({
                             )}
                             <button
                                 type="submit"
-                                disabled={!!error || !cardData || !amount}
-                                className="h-10 w-full bg-leaf disabled:bg-leaf/70 rounded-xl px-4 text-sm font-ro-semibold text-white focus:outline-none focus:ring-1 focus:ring-leaf focus:border-transparent transition-all duration-200 ease-in-out">
+                                className="h-10 w-full bg-bordeaux  hover:bg-bordeaux-hover rounded-xl px-4 text-sm font-ro-semibold text-white focus:outline-none focus:ring-1 focus:ring-bordeaux focus:border-transparent transition-all duration-200 ease-in-out">
                                 <p className="text-white font-ro-medium">
-                                    Encaisser{" "}
-                                    {amount ? amount.toFixed(2) + " €" : ""}
+                                    Bloquer la carte
                                 </p>
                             </button>
                         </div>

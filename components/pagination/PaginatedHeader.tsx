@@ -4,7 +4,7 @@ export interface PaginatedHeaderProps {
 
 export const PaginatedHeader = ({ headers }: PaginatedHeaderProps) => {
     return (
-        <div className="w-full flex bg-white-hover cursor-pointer">
+        <div className="w-full flex bg-white-hover cursor-pointer sticky">
             {headers.map((header) => {
                 return (
                     <div
