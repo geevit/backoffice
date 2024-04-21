@@ -6,6 +6,7 @@ import { PageTitle } from "@geevit/components/ui/PageTitle";
 import { SectionTitle } from "@geevit/components/ui/SectionTitle";
 import { BlocageModal } from "@geevit/src/components/modals/BlocageModal";
 import { EncaissementModal } from "@geevit/src/components/modals/EncaissementModal";
+import { SelectShopSheet } from "@geevit/src/components/sheets/SelectShopSheet";
 
 import {
     CardEntity,
@@ -13,17 +14,20 @@ import {
     CardStatusEnum,
     DataQuery,
 } from "@geevit/types";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { useCookies } from "react-cookie";
 
 export default function CardsPage() {
     const [page, setPage] = useState(1);
-    const router = useRouter();
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [selectedFilter, setSelectedFilter] = useState<string>("ALL");
     const [cards, setCards] = useState<DataQuery<CardEntity>>();
     const [orderBy, setOrderBy] = useState<string>("expirationDate");
+    const [cookies, setCookies] = useCookies([
+        "Bearer",
+        "connectedUser",
+        "selectedShops",
+    ]);
     const refreshData = async () => {
         const config = {
             method: "POST",
@@ -38,6 +42,7 @@ export default function CardsPage() {
         if (searchTerm !== "") {
             body.cardNumber = searchTerm;
         }
+        body.shopIds = Array.from(cookies.selectedShops);
         config.body = JSON.stringify(body);
         const url = new URL(
             `${process.env.NEXT_PUBLIC_API_URL}/card/paginated`
@@ -53,11 +58,15 @@ export default function CardsPage() {
     };
     useEffect(() => {
         refreshData();
-    }, [page, selectedFilter, searchTerm, orderBy]);
+    }, [page, selectedFilter, searchTerm, orderBy, cookies.selectedShops]);
 
     return (
         <div className="flex flex-col gap-6 items-start">
-            <PageTitle title="Gestion des cartes" />
+            <div className="flex justify-between items-center w-full">
+                <PageTitle title="Gestion des cartes" />
+
+                <SelectShopSheet />
+            </div>
             <SectionTitle title="Actions rapides" />
             <div className="w-full flex gap-4">
                 <EncaissementModal refreshData={refreshData} disabled={false} />

@@ -64,6 +64,7 @@ export default function CardsPage() {
         if (searchTerm !== "") {
             body.cardNumber = searchTerm;
         }
+        body.shopIds = Array.from(cookies.selectedShops);
         config.body = JSON.stringify(body);
         return await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/operation/paginated?page=${page}&take=10&orderClause=operationDate&orderDirection=ASC`,
@@ -83,7 +84,7 @@ export default function CardsPage() {
     };
     useEffect(() => {
         refreshData();
-    }, [page, selectedFilter, searchTerm]);
+    }, [page, selectedFilter, searchTerm, cookies.selectedShops]);
     return (
         <div className="flex flex-col gap-6 items-start">
             <div className="flex justify-between items-center w-full">
