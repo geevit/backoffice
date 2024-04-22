@@ -34,7 +34,9 @@ export const PaginatedOrder = ({ values, setOrderBy }: PaginatedOrderProps) => {
                     <SelectGroup>
                         <SelectLabel>Trier par</SelectLabel>
                         {Object.entries(values).map(([key, value]) => (
-                            <SelectItem value={value}>{key}</SelectItem>
+                            <SelectItem value={value} key={key}>
+                                {key}
+                            </SelectItem>
                         ))}
                         {/* {values.map((value) => (
                         <SelectItem value={value[0]}>{value[1]}</SelectItem>
