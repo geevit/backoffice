@@ -1,21 +1,18 @@
 "use client";
-import { PaginatedTable } from "@geevit/components/pagination/PaginatedTable";
 import { PageTitle } from "@geevit/components/ui/PageTitle";
 import { SectionTitle } from "@geevit/components/ui/SectionTitle";
-import { BlocageModal } from "@geevit/src/components/modals/BlocageModal";
-import { EncaissementModal } from "@geevit/src/components/modals/EncaissementModal";
-import {
-    CardEntity,
-    CardStatusEnum,
-    ShopEntity,
-    SubscriptionEntity,
-} from "@geevit/types";
+
+import { useAuth } from "@geevit/src/contexts/AuthContext";
+import { ShopEntity, SubscriptionEntity, UserEntity } from "@geevit/types";
 import { TriangleAlert } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 export default function CardPage() {
-    const shopId = "5e4d5166-d09d-491f-b588-d1ce510876f6";
+    const user = useAuthUser<UserEntity>();
+    const [open, setOpen] = useState(false);
     const [shop, setShop] = useState<ShopEntity>();
+    const [activeShop, setActiveShop] = useState<ShopEntity>();
     const [activeSubscription, setActiveSubscription] =
         useState<SubscriptionEntity>();
     const getShop = async (shopId: string) => {
@@ -36,16 +33,55 @@ export default function CardPage() {
         });
     };
 
+    const toggleOpen = () => {
+        setOpen(!open);
+    };
+
+    const toggleSelect = (shop: ShopEntity) => {
+        setActiveShop(shop);
+        setOpen(false);
+    };
+
+    useEffect(() => {
+        if (user && user.shops) setActiveShop(user.shops[0]);
+    }, []);
+
     React.useEffect(() => {
-        getShop(shopId);
-    }, [shopId]);
+        activeShop && getShop(activeShop?.shopId);
+    }, [, activeShop]);
+
     return (
-        shop &&
-        activeSubscription && (
+        shop && (
             <div>
                 <div className="flex flex-col gap-6 items-start w-full">
-                    <PageTitle title="Mon commerce" />
-
+                    <div className="flex w-full items-center justify-between">
+                        <PageTitle title="Mon commerce" />
+                        <div className="relative">
+                            <div
+                                onClick={toggleOpen}
+                                className={`h-10 cursor-pointer bg-white hover:bg-white-hover rounded-xl px-4 flex items-center gap-1 placeholder-leaf/70 text-sm font-ro-semibold text-leaf  focus:outline-none focus:ring-1 focus:ring-leaf focus:border-transparent transition-all duration-200 ease-in-out`}>
+                                {activeShop?.name || "Selectionner un commerce"}
+                            </div>
+                            {open && (
+                                <div
+                                    className={`mt-2 absolute right-0 bg-white shadow rounded-xl flex items-center gap-1 placeholder-leaf/70 text-sm font-ro-semibold text-leaf  focus:outline-none focus:ring-1 focus:ring-leaf focus:border-transparent transition-all duration-200 ease-in-out`}>
+                                    <div className="flex flex-col p-1">
+                                        {user &&
+                                            user.shops.map((shop) => (
+                                                <div
+                                                    key={shop.shopId}
+                                                    onClick={() =>
+                                                        toggleSelect(shop)
+                                                    }
+                                                    className="w-full py-2 px-4 whitespace-nowrap hover:bg-white-hover cursor-pointer rounded-lg">
+                                                    {shop.name}
+                                                </div>
+                                            ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
                     <div className="flex flex-col gap-3 w-full">
                         <SectionTitle title="Détails" />
                         <div className="flex gap-4 w-full">
@@ -123,8 +159,10 @@ export default function CardPage() {
                                         Type de forfait
                                     </p>
                                     <p className="font-ro-semibold text-leaf">
-                                        {activeSubscription?.forfait?.name ||
-                                            "Inconnu"}
+                                        {activeSubscription
+                                            ? activeSubscription.forfait.name ||
+                                              "Inconnu"
+                                            : "Aucun"}
                                     </p>
                                 </div>
                                 <div className="flex flex-col">
@@ -132,11 +170,12 @@ export default function CardPage() {
                                         Membre depuis le
                                     </p>
                                     <p className="font-ro-semibold text-leaf">
-                                        {(activeSubscription &&
-                                            new Date(
-                                                activeSubscription.startDate
-                                            ).toLocaleDateString()) ||
-                                            "Inconnu"}
+                                        {activeSubscription
+                                            ? new Date(
+                                                  activeSubscription.startDate
+                                              ).toLocaleDateString() ||
+                                              "Inconnu"
+                                            : "Aucun"}
                                     </p>
                                 </div>
                                 <div className="flex flex-col">
@@ -144,9 +183,12 @@ export default function CardPage() {
                                         Engagé jusqu'au
                                     </p>
                                     <p className="font-ro-semibold text-leaf">
-                                        {new Date(
-                                            activeSubscription.endDate
-                                        ).toLocaleDateString() || "Inconnu"}
+                                        {activeSubscription
+                                            ? new Date(
+                                                  activeSubscription.endDate
+                                              ).toLocaleDateString() ||
+                                              "Inconnu"
+                                            : "Pas d'abonnement"}
                                     </p>
                                 </div>
                             </div>
@@ -193,27 +235,28 @@ export default function CardPage() {
                                     }
                                 </p>
                             </div>
-                            {activeSubscription.receivingAutomaticly && (
-                                <div className="flex flex-col">
-                                    <p className="font-ro-medium text-leaf">
-                                        Prochaine livraison automatique
-                                    </p>
-                                    <p className="font-ro-semibold text-leaf">
-                                        {new Date().getDate() <
-                                        activeSubscription.receivingDay
-                                            ? new Date(
-                                                  new Date().getFullYear(),
-                                                  new Date().getMonth(),
-                                                  activeSubscription.receivingDay
-                                              ).toLocaleDateString()
-                                            : new Date(
-                                                  new Date().getFullYear(),
-                                                  new Date().getMonth() + 1,
-                                                  activeSubscription.receivingDay
-                                              ).toLocaleDateString()}
-                                    </p>
-                                </div>
-                            )}
+                            {activeSubscription &&
+                                activeSubscription.receivingAutomaticly && (
+                                    <div className="flex flex-col">
+                                        <p className="font-ro-medium text-leaf">
+                                            Prochaine livraison automatique
+                                        </p>
+                                        <p className="font-ro-semibold text-leaf">
+                                            {new Date().getDate() <
+                                            activeSubscription.receivingDay
+                                                ? new Date(
+                                                      new Date().getFullYear(),
+                                                      new Date().getMonth(),
+                                                      activeSubscription.receivingDay
+                                                  ).toLocaleDateString()
+                                                : new Date(
+                                                      new Date().getFullYear(),
+                                                      new Date().getMonth() + 1,
+                                                      activeSubscription.receivingDay
+                                                  ).toLocaleDateString()}
+                                        </p>
+                                    </div>
+                                )}
                             <div className="bg-yellow px-5 py-3 rounded-xl text-yellow-dark font-ro-medium flex items-center w-full gap-2">
                                 <TriangleAlert className="mr-3 size-6" />
                                 <div className="flex flex-col">

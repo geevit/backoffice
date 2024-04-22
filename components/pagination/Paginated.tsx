@@ -20,6 +20,7 @@ export interface PaginatedProps {
     setPage: (page: number) => void;
     setSelectedFilter: (filter: string) => void;
     setOrderBy: (orderBy: string) => void;
+    noActiveShop?: boolean;
 }
 
 export const Paginated = ({
@@ -37,6 +38,7 @@ export const Paginated = ({
     searchTerm,
     setSearchTerm,
     setOrderBy,
+    noActiveShop,
 }: PaginatedProps) => {
     return (
         <div className="w-full">
@@ -69,8 +71,11 @@ export const Paginated = ({
                 toDate={toDate}
                 href={href}
                 hrefKey={hrefKey}
+                noActiveShop={noActiveShop}
             />
-            <PaginatedMeta meta={dataQuery.meta} setPage={setPage} />
+            {!noActiveShop && (
+                <PaginatedMeta meta={dataQuery.meta} setPage={setPage} />
+            )}
         </div>
     );
 };

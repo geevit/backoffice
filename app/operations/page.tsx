@@ -5,52 +5,24 @@ import { FastActionButton } from "@geevit/components/ui/FastActionButton";
 import { PageTitle } from "@geevit/components/ui/PageTitle";
 import { SectionTitle } from "@geevit/components/ui/SectionTitle";
 import { SelectShopSheet } from "@geevit/src/components/sheets/SelectShopSheet";
-import { me } from "@geevit/src/lib/utils";
+import { useActiveShops } from "@geevit/src/contexts/ActiveShopContext";
+import { useAuth } from "@geevit/src/contexts/AuthContext";
 import {
     DataQuery,
     OperationEntity,
     OperationFilter,
     OperationTypeEnum,
-    ShopEntity,
-    UserEntity,
 } from "@geevit/types";
 import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 
 export default function CardsPage() {
-    const [cookies, setCookies] = useCookies([
-        "Bearer",
-        "connectedUser",
-        "selectedShops",
-    ]);
     const [page, setPage] = useState(1);
+    const { activeShops } = useActiveShops();
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [selectedFilter, setSelectedFilter] = useState<string>("ALL");
     const [operations, setOperations] = useState<DataQuery<OperationEntity>>();
     const refreshData = async () => {
-        await me(cookies.Bearer).then(({ jwt, me }) => {
-            setCookies("connectedUser", JSON.stringify(me), {
-                path: "/",
-                sameSite: true,
-                expires: new Date(new Date().getTime() + 60 * 60 * 24 * 1000),
-            });
-            setCookies("Bearer", jwt, {
-                path: "/",
-                sameSite: true,
-                expires: new Date(new Date().getTime() + 60 * 60 * 24 * 1000),
-            });
-            // setCookies(
-            //     "selectedShops",
-            //     me.shops.map((shop: ShopEntity) => shop.shopId),
-            //     {
-            //         path: "/",
-            //         sameSite: true,
-            //         expires: new Date(
-            //             new Date().getTime() + 60 * 60 * 24 * 1000
-            //         ),
-            //     }
-            // );
-        });
+        if (activeShops.length === 0) return;
         const config = {
             method: "POST",
             headers: {
@@ -64,7 +36,7 @@ export default function CardsPage() {
         if (searchTerm !== "") {
             body.cardNumber = searchTerm;
         }
-        body.shopIds = Array.from(cookies.selectedShops);
+        body.shopIds = activeShops;
         config.body = JSON.stringify(body);
         return await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/operation/paginated?page=${page}&take=10&orderClause=operationDate&orderDirection=ASC`,
@@ -84,12 +56,12 @@ export default function CardsPage() {
     };
     useEffect(() => {
         refreshData();
-    }, [page, selectedFilter, searchTerm, cookies.selectedShops]);
+    }, [page, selectedFilter, searchTerm, activeShops]);
+
     return (
         <div className="flex flex-col gap-6 items-start">
             <div className="flex justify-between items-center w-full">
                 <PageTitle title="Mes opérations" />
-
                 <SelectShopSheet />
             </div>
             <SectionTitle title="Actions rapides" />
@@ -102,6 +74,7 @@ export default function CardsPage() {
             <SectionTitle title="Opérations" />
             {operations && (
                 <Paginated
+                    noActiveShop={activeShops.length === 0}
                     dataQuery={operations}
                     displayHeaders={[
                         "Date de l'opération",

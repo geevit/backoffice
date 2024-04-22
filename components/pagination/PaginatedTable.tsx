@@ -11,6 +11,7 @@ export interface PaginatedTableProps {
     hrefKey: string;
     dataQuery: DataQuery<any>;
     className?: string;
+    noActiveShop?: boolean;
 }
 
 export const PaginatedTable = ({
@@ -22,6 +23,7 @@ export const PaginatedTable = ({
     hrefKey,
     dataQuery,
     className,
+    noActiveShop,
 }: PaginatedTableProps) => {
     return (
         <div
@@ -29,23 +31,32 @@ export const PaginatedTable = ({
                 className || ""
             }`}>
             <PaginatedHeader headers={displayHeaders} />
-            {dataQuery.data.map((row, index) => {
-                return (
-                    <PaginatedRow
-                        key={index}
-                        data={row}
-                        headers={headers}
-                        toFixed={toFixed}
-                        toDate={toDate}
-                        href={href}
-                        hrefKey={hrefKey}
-                    />
-                );
-            })}
+            {!noActiveShop &&
+                dataQuery.data.map((row, index) => {
+                    return (
+                        <PaginatedRow
+                            key={index}
+                            data={row}
+                            headers={headers}
+                            toFixed={toFixed}
+                            toDate={toDate}
+                            href={href}
+                            hrefKey={hrefKey}
+                        />
+                    );
+                })}
             {dataQuery.data.length === 0 && (
                 <div className="flex justify-center items-center h-full py-10">
                     <p className="text-leaf/70 font-ro-medium ">
                         Aucun résultat
+                    </p>
+                </div>
+            )}
+            {noActiveShop && (
+                <div className="flex justify-center items-center h-full py-10">
+                    <p className="text-leaf/70 font-ro-medium ">
+                        Sélectionnez un ou plusieurs commerces pour afficher les
+                        données
                     </p>
                 </div>
             )}

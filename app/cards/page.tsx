@@ -7,6 +7,9 @@ import { SectionTitle } from "@geevit/components/ui/SectionTitle";
 import { BlocageModal } from "@geevit/src/components/modals/BlocageModal";
 import { EncaissementModal } from "@geevit/src/components/modals/EncaissementModal";
 import { SelectShopSheet } from "@geevit/src/components/sheets/SelectShopSheet";
+import { useActiveShops } from "@geevit/src/contexts/ActiveShopContext";
+import { useAuth } from "@geevit/src/contexts/AuthContext";
+import { me } from "@geevit/src/lib/utils";
 
 import {
     CardEntity,
@@ -23,12 +26,11 @@ export default function CardsPage() {
     const [selectedFilter, setSelectedFilter] = useState<string>("ALL");
     const [cards, setCards] = useState<DataQuery<CardEntity>>();
     const [orderBy, setOrderBy] = useState<string>("expirationDate");
-    const [cookies, setCookies] = useCookies([
-        "Bearer",
-        "connectedUser",
-        "selectedShops",
-    ]);
-    const refreshData = async () => {
+    const [cookies, setCookies] = useCookies(["jwt", "user"]);
+    const { activeShops, setActiveShops } = useActiveShops();
+    const refresh = async () => {
+        if (activeShops.length === 0) return;
+
         const config = {
             method: "POST",
             headers: {
@@ -42,7 +44,8 @@ export default function CardsPage() {
         if (searchTerm !== "") {
             body.cardNumber = searchTerm;
         }
-        body.shopIds = Array.from(cookies.selectedShops);
+        const shopIds = activeShops;
+        if (shopIds.length > 0) body.shopIds = activeShops;
         config.body = JSON.stringify(body);
         const url = new URL(
             `${process.env.NEXT_PUBLIC_API_URL}/card/paginated`
@@ -57,8 +60,8 @@ export default function CardsPage() {
         });
     };
     useEffect(() => {
-        refreshData();
-    }, [page, selectedFilter, searchTerm, orderBy, cookies.selectedShops]);
+        refresh();
+    }, [page, selectedFilter, searchTerm, orderBy, activeShops]);
 
     return (
         <div className="flex flex-col gap-6 items-start">
@@ -69,9 +72,9 @@ export default function CardsPage() {
             </div>
             <SectionTitle title="Actions rapides" />
             <div className="w-full flex gap-4">
-                <EncaissementModal refreshData={refreshData} disabled={false} />
+                <EncaissementModal refreshData={refresh} disabled={false} />
                 <BlocageModal
-                    refreshData={refreshData}
+                    refreshData={refresh}
                     disabled={false}
                     title="Bloquer une carte"
                 />
@@ -81,6 +84,7 @@ export default function CardsPage() {
             <SectionTitle title="Cartes" />
             {cards && (
                 <Paginated
+                    noActiveShop={activeShops.length === 0}
                     dataQuery={cards}
                     displayHeaders={[
                         "Numéro de carte",
