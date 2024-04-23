@@ -57,9 +57,13 @@ const config = {
             colors: {
                 leaf: "#114232",
                 "leaf-hover": "#0e3a2b",
+                "leaf-dark": "#0c3426",
                 black: "#000000",
                 white: "#ffffff",
                 gray: "#EDEEEC",
+                stone: "#F4F4F4",
+                rouge: "#E35555",
+                "rouge-hover": "#d14f4f",
                 "white-hover": "#FAFAFA",
                 bordeaux: "#421111",
                 "bordeaux-hover": "#3a0e0e",

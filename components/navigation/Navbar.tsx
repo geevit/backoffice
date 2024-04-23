@@ -4,6 +4,7 @@ import { Bolt } from "lucide-react";
 import { GeevitLogo } from "../ui/GeevitLogo";
 import { NavBarItem } from "./NavBarItem";
 import { NavBarList } from "./NavBarList";
+import { ConnectedAs } from "./ConnectedAs";
 
 export const Navbar: FC = () => {
     return (
@@ -12,7 +13,7 @@ export const Navbar: FC = () => {
                 <GeevitLogo />
             </div>
             <NavBarList />
-            <NavBarItem title="Réglages" Icon={Bolt} />
+            <ConnectedAs />
         </div>
     );
 };

@@ -1,6 +1,7 @@
 "use client";
 import {
     BarChart2,
+    Bolt,
     CreditCard,
     LayoutDashboard,
     Percent,
@@ -25,7 +26,7 @@ export const NavBarList = () => {
             />
             <NavBarItem title="Mes cartes" Icon={CreditCard} href="/cards" />
             <NavBarItem title="Mon commerce" Icon={Store} href="/shop" />
-            <NavBarItem title="Mon profil" Icon={UserRound} href="/profile" />
+            <NavBarItem title="Réglages" Icon={Bolt} href="/settings" />
         </div>
     );
 };

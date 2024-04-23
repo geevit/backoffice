@@ -247,7 +247,7 @@ export default function RootLayout({
                             <CookiesProvider>
                                 <div className="bg-leaf flex w-screen h-screen p-2">
                                     <Navbar />
-                                    <div className="w-[85%] bg-gray rounded-xl p-6">
+                                    <div className="w-[85%] bg-gray rounded-xl p-6 overflow-auto">
                                         {children}
                                     </div>
                                 </div>

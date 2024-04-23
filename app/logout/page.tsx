@@ -1,6 +1,8 @@
 "use client";
-import { useAuth } from "@geevit/src/contexts/AuthContext";
+import { useRouter } from "next/navigation";
+import useSignOut from "react-auth-kit/hooks/useSignOut";
 export default function () {
-    const { logout } = useAuth();
-    logout();
+    const router = useRouter();
+    useSignOut()();
+    router.push("/login");
 }

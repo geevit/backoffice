@@ -1,23 +1,133 @@
 "use client";
-import { me } from "@geevit/src/lib/utils";
-import { useEffect } from "react";
-import { useCookies } from "react-cookie";
+import { PageTitle } from "@geevit/components/ui/PageTitle";
+import { SettingCard } from "@geevit/src/components/ui/settingCard";
+import { toast } from "sonner";
 
 export default function SettingsPage() {
-    const [cookies, setCookies] = useCookies(["Bearer", "connectedUser"]);
-    useEffect(() => {
-        me(cookies.Bearer).then(({ jwt, me }) => {
-            setCookies("connectedUser", JSON.stringify(me), {
-                path: "/",
-                sameSite: true,
-                expires: new Date(new Date().getTime() + 60 * 60 * 24 * 1000),
-            });
-            setCookies("Bearer", jwt, {
-                path: "/",
-                sameSite: true,
-                expires: new Date(new Date().getTime() + 60 * 60 * 24 * 1000),
-            });
-        });
-    }, []);
-    return <div>SettingsPage</div>;
+    return (
+        <div className="flex flex-col gap-6 items-start  overflow-x-hidden overflow-scroll">
+            <PageTitle title="Réglages" />
+            <SettingCard
+                title="Mot de passe"
+                data={[
+                    {
+                        title: "Mot de passe",
+                        description:
+                            "Vous pouvez modifier votre mot de passe à tout moment en cliquant sur le bouton ci-dessous. Vous recevrez un email contenant les instructions.",
+                    },
+                ]}>
+                <button
+                    onClick={() =>
+                        toast.success(
+                            "Un email vous a été envoyé pour modifier votre mot de passe."
+                        )
+                    }
+                    className="bg-stone w-min whitespace-nowrap px-4 py-2 rounded-xl text-sm text-leaf font-ro-semibold hover:bg-gray transition-all duration-200 ease-in-out">
+                    Modifier mon mot de passe
+                </button>
+            </SettingCard>
+            <SettingCard
+                title="Authentification à deux facteurs"
+                data={[
+                    {
+                        title: "Authentification à deux facteurs",
+                        description: "Activée pour le 0614716071",
+                    },
+                ]}>
+                <div className="flex gap-2">
+                    <button
+                        onClick={() =>
+                            toast.success(
+                                "Bientôt disponible, restez connecté !"
+                            )
+                        }
+                        className="bg-stone w-min whitespace-nowrap px-4 py-2 rounded-xl text-sm text-leaf font-ro-semibold hover:bg-gray transition-all duration-200 ease-in-out">
+                        Modifier le numéro
+                    </button>
+                    <button
+                        onClick={() =>
+                            toast.success(
+                                "Bientôt disponible, restez connecté !"
+                            )
+                        }
+                        className="bg-rouge w-min whitespace-nowrap px-4 py-2 rounded-xl text-sm text-white font-ro-semibold hover:bg-rouge-hover transition-all duration-200 ease-in-out">
+                        Désactiver
+                    </button>
+                </div>
+            </SettingCard>
+            <SettingCard
+                title="Forfait"
+                data={[
+                    {
+                        title: "Mon forfait",
+                        description: "Forfait Gold",
+                    },
+                    {
+                        title: "Moyen de paiement",
+                        description: "Carte ···· 4458",
+                    },
+                    {
+                        title: "Date de prélèvement",
+                        description: "Le 2 de chaque mois",
+                    },
+                ]}>
+                <div className="flex gap-2">
+                    <button
+                        onClick={() =>
+                            toast.success(
+                                "Bientôt disponible, restez connecté !"
+                            )
+                        }
+                        className="bg-stone w-min whitespace-nowrap px-4 py-2 rounded-xl text-sm text-leaf font-ro-semibold hover:bg-gray transition-all duration-200 ease-in-out">
+                        Modifier le moyen de paiement
+                    </button>
+                    <button
+                        onClick={() =>
+                            toast.success(
+                                "Bientôt disponible, restez connecté !"
+                            )
+                        }
+                        className="bg-stone w-min whitespace-nowrap px-4 py-2 rounded-xl text-sm text-leaf font-ro-semibold hover:bg-gray transition-all duration-200 ease-in-out">
+                        Modifier la date du prélèvement
+                    </button>
+                </div>
+            </SettingCard>
+            <SettingCard
+                title="Cartes"
+                data={[
+                    {
+                        title: "Réception automatique des cartes",
+                        description: "Activée",
+                    },
+                    {
+                        title: "Date de réception des cartes",
+                        description: "Le 5 de chaque mois",
+                    },
+                ]}>
+                <button
+                    onClick={() =>
+                        toast.success("Bientôt disponible, restez connecté !")
+                    }
+                    className="bg-stone w-min whitespace-nowrap px-4 py-2 rounded-xl text-sm text-leaf font-ro-semibold hover:bg-gray transition-all duration-200 ease-in-out">
+                    Modifier la récecption automatique
+                </button>
+            </SettingCard>
+            <SettingCard
+                title="Langue"
+                data={[
+                    {
+                        title: "Langue de l'application",
+                        description: "Français (France)",
+                    },
+                ]}>
+                <button
+                    onClick={() =>
+                        toast.success("Bientôt disponible, restez connecté !")
+                    }
+                    className="bg-stone w-min whitespace-nowrap px-4 py-2 rounded-xl text-sm text-leaf font-ro-semibold hover:bg-gray transition-all duration-200 ease-in-out">
+                    Changer de langue
+                </button>
+            </SettingCard>
+        </div>
+    );
 }
