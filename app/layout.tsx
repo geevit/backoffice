@@ -207,6 +207,7 @@ export default function RootLayout({
                 className="text-leaf"
                 sizes="any"
             />
+            <title>Dashboard - geevit</title>
             <body
                 className={`bg-leaf 
             ${rebond.variable}
