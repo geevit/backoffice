@@ -12,6 +12,7 @@ import { Input } from "../input/Input";
 import { CardEntity } from "@geevit/types";
 import { Euro, KeySquare, Search, TriangleAlert } from "lucide-react";
 import { toast } from "sonner";
+import { Label } from "../ui/label";
 
 export interface EncaissementModalProps {
     refreshData: () => void;
@@ -170,21 +171,35 @@ export const EncaissementModal = ({
                     onChange={handleChange}
                     className="flex flex-col gap-4"
                     onSubmit={submitCollect}>
-                    <Input
-                        placeholder="Rechercher un numéro..."
-                        Icon={Search}
-                        name="cardNumber"
-                        defaultValue={defaultCardNumber}
-                    />
-                    {cardExists && (
+                    <div className="flex flex-col gap-2">
+                        <Label>Numéro de carte</Label>
                         <Input
-                            placeholder="Code de sécurité (4 chiffres)"
-                            Icon={KeySquare}
-                            name="cardCode"
+                            placeholder="Rechercher un numéro..."
+                            Icon={Search}
+                            name="cardNumber"
+                            defaultValue={defaultCardNumber}
                         />
+                    </div>
+                    {cardExists && (
+                        <div className="flex flex-col gap-2">
+                            <Label>Code de sécurité</Label>
+                            <Input
+                                placeholder="Code de sécurité (4 chiffres)"
+                                Icon={KeySquare}
+                                name="cardCode"
+                            />
+                        </div>
                     )}
                     {cardData && (
                         <div className="flex flex-col gap-4">
+                            <div className="flex flex-col gap-2 ">
+                                <Label>Montant</Label>
+                                <Input
+                                    placeholder="20,00 €"
+                                    Icon={Euro}
+                                    name="amount"
+                                />
+                            </div>
                             <div className="flex ">
                                 <div className="flex-1">
                                     <p className="font-ro-bold text-leaf">
@@ -206,13 +221,7 @@ export const EncaissementModal = ({
                                     </p>
                                 </div>
                             </div>
-                            <div className="flex flex-col gap-2 mt-4">
-                                <Input
-                                    placeholder="Montant"
-                                    Icon={Euro}
-                                    name="amount"
-                                />
-                            </div>
+
                             {error && cardData && (
                                 <div className="bg-red-200 px-5 py-3 rounded-xl text-red-900 font-ro-medium flex items-center">
                                     <TriangleAlert className="mr-3 size-4" />

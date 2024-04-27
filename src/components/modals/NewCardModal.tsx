@@ -384,7 +384,7 @@ export const NewCardModal = ({
                                     </Label>
                                 </div>
                                 {!configureNow && (
-                                    <form>
+                                    <form className="flex flex-col gap-2">
                                         <Label>Email du client</Label>
                                         <Input
                                             placeholder="louis.dup@email.com"
@@ -395,7 +395,7 @@ export const NewCardModal = ({
                                 )}
                                 {configureNow && (
                                     <form className="flex flex-col gap-2">
-                                        <Label>Nom du client</Label>
+                                        <Label>Nom du client (offrant)</Label>
                                         <Input
                                             placeholder="Lucas Dupont"
                                             Icon={User2}
@@ -407,13 +407,26 @@ export const NewCardModal = ({
                                             Icon={Gift}
                                             name="receiverName"
                                         />
-                                        <Label>Email du destinataire</Label>
+                                        <Label>
+                                            Email du destinataire{" "}
+                                            <span className="ml-1 text-leaf/70">
+                                                (facultatif si le tel. est
+                                                renseigné)
+                                            </span>
+                                        </Label>
                                         <Input
                                             placeholder="louis.dup@email.com"
                                             Icon={Mail}
                                             name="receiverEmail"
                                         />
-                                        <Label>Téléphone du destinataire</Label>
+
+                                        <Label>
+                                            Téléphone du destinataire{" "}
+                                            <span className="ml-1 text-leaf/70">
+                                                (facultatif si l'email est
+                                                renseigné)
+                                            </span>
+                                        </Label>
                                         <Input
                                             placeholder="06 12 34 56 78"
                                             Icon={Phone}
@@ -436,29 +449,32 @@ export const NewCardModal = ({
                                         />
                                     </form>
                                 )}
-                                <div className="flex ">
-                                    <div className="flex-1">
-                                        <p className="font-ro-bold text-leaf">
-                                            Date d'activation
-                                        </p>
-                                        <p className="font-ro text-leaf">
-                                            Aujourd'hui
-                                        </p>
+                                {configureNow && (
+                                    <div className="flex ">
+                                        <div className="flex-1">
+                                            <p className="font-ro-bold text-leaf">
+                                                Date d'envoi (activation)
+                                            </p>
+                                            <p className="font-ro text-leaf">
+                                                Aujourd'hui
+                                            </p>
+                                        </div>
+                                        <div className="flex-1">
+                                            <p className="font-ro-bold text-leaf">
+                                                Date d'expiration
+                                            </p>
+                                            <p className="font-ro text-leaf">
+                                                {new Date(
+                                                    new Date().setFullYear(
+                                                        new Date().getFullYear() +
+                                                            1
+                                                    )
+                                                ).toLocaleDateString("fr-FR") ||
+                                                    "Inconnu"}
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div className="flex-1">
-                                        <p className="font-ro-bold text-leaf">
-                                            Date d'expiration
-                                        </p>
-                                        <p className="font-ro text-leaf">
-                                            {new Date(
-                                                new Date().setFullYear(
-                                                    new Date().getFullYear() + 1
-                                                )
-                                            ).toLocaleDateString("fr-FR") ||
-                                                "Inconnu"}
-                                        </p>
-                                    </div>
-                                </div>
+                                )}
                                 <button
                                     type="submit"
                                     disabled={!!error || !amount}
