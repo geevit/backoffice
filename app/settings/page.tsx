@@ -1,9 +1,26 @@
 "use client";
 import { PageTitle } from "@geevit/components/ui/PageTitle";
 import { SettingCard } from "@geevit/src/components/ui/settingCard";
+import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
 import { toast } from "sonner";
 
 export default function SettingsPage() {
+    const authHeader = useAuthHeader();
+
+    const handleResetPassword = async () => {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: authHeader as string,
+            },
+        }).then(() => {
+            toast.success(
+                "Un email vous a été envoyé pour modifier votre mot de passe."
+            );
+        });
+    };
+
     return (
         <div className="flex flex-col gap-6 items-start  overflow-x-hidden overflow-scroll">
             <PageTitle title="Réglages" />
@@ -17,11 +34,7 @@ export default function SettingsPage() {
                     },
                 ]}>
                 <button
-                    onClick={() =>
-                        toast.success(
-                            "Un email vous a été envoyé pour modifier votre mot de passe."
-                        )
-                    }
+                    onClick={handleResetPassword}
                     className="bg-stone w-min whitespace-nowrap px-4 py-2 rounded-xl text-sm text-leaf font-ro-semibold hover:bg-gray transition-all duration-200 ease-in-out">
                     Modifier mon mot de passe
                 </button>

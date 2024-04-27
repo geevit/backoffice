@@ -4,6 +4,8 @@ import { SectionTitle } from "@geevit/components/ui/SectionTitle";
 import { useEffect, useState } from "react";
 import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
 import Head from "next/head";
+import { useActiveShops } from "@geevit/src/contexts/ActiveShopContext";
+import { SelectShopSheet } from "@geevit/src/components/sheets/SelectShopSheet";
 
 export default function ProfilePage() {
     const [statistics, setStatistics] = useState<{
@@ -18,9 +20,12 @@ export default function ProfilePage() {
         salesAmountOfShopThree: number;
     }>();
 
+    const { activeShops } = useActiveShops();
+
     const authHeader = useAuthHeader();
 
     const refresh = async () => {
+        if (activeShops.length === 0) return;
         const config = {
             method: "GET",
             headers: {
@@ -29,10 +34,9 @@ export default function ProfilePage() {
             },
         } as RequestInit;
         const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/statistics`);
-        url.searchParams.append(
-            "shopIds",
-            "5e4d5166-d09d-491f-b588-d1ce510876f6"
-        );
+        activeShops.forEach((as) => {
+            url.searchParams.append("shopIds", as);
+        });
         url.searchParams.append("range", "YEAR");
         return await fetch(url, config).then(async (res) => {
             const data = await res.json();
@@ -41,13 +45,25 @@ export default function ProfilePage() {
     };
     useEffect(() => {
         refresh();
-    }, []);
+    }, [activeShops]);
+
+    /**
+     * TODO:
+     * - Choix de la période
+     * - Classement des shops
+     * - Modal ajouter une carte
+     * - Modal commande de carte
+     */
 
     return (
         <div className="flex flex-col gap-4">
-            <PageTitle title="Statistiques" />
+            <div className="flex justify-between items-center w-full">
+                <PageTitle title="Statistiques" />
+
+                <SelectShopSheet />
+            </div>
             <SectionTitle title="Statistiques générales" />
-            <div className="grid grid-cols-4 w-full gap-4 ">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-4 ">
                 <div className="bg-white rounded-2xl p-8 flex flex-col justify-end flex-1 gap-1">
                     <h3 className="font-ro-heavy text-leaf text-5xl">
                         {statistics?.soldCardsCount}

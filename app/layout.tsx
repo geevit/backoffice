@@ -9,7 +9,6 @@ import { usePathname } from "next/navigation";
 import { GeevitLogo } from "@geevit/components/ui/GeevitLogo";
 import { ActiveShopsProvider } from "@geevit/src/contexts/ActiveShopContext";
 import { AuthProvider2 } from "@geevit/src/contexts/AuthContext";
-import AuthProvider from "react-auth-kit/AuthProvider";
 import Providers from "@geevit/src/contexts/AuthKitProvider";
 // export const metadata: Metadata = {
 //     title: "Dashboard - geevit",
@@ -136,14 +135,14 @@ const roobertHeavyItalic = localFont({
     variable: "--font-roobert-heavy-italic",
 });
 
-const excludeLayoutPathnames = ["/login"];
+const excludeLayoutPathnames = ["login", "reset-password"];
 
 export default function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const pathname = usePathname();
+    const pathname = usePathname().split("/")[1];
     if (excludeLayoutPathnames.includes(pathname))
         return (
             <html lang="fr">
@@ -190,7 +189,7 @@ export default function RootLayout({
                     <Providers>
                         <div className="bg-leaf flex flex-col gap-6 w-screen h-screen items-center justify-center p-2">
                             <GeevitLogo />
-                            <div className=" bg-gray rounded-xl p-6 h-min w-1/5">
+                            <div className=" bg-gray rounded-xl p-6 h-min w-1/5 sm:min-w-96 min-w-80">
                                 {children}
                             </div>
                         </div>
@@ -246,9 +245,9 @@ export default function RootLayout({
                     <AuthProvider2>
                         <ActiveShopsProvider>
                             <CookiesProvider>
-                                <div className="bg-leaf flex w-screen h-screen p-2">
+                                <div className="bg-leaf flex flex-col md:flex-row w-screen h-screen p-2">
                                     <Navbar />
-                                    <div className="w-[85%] bg-gray rounded-xl p-6 overflow-auto">
+                                    <div className="w-full md:w-[85%] h-full bg-gray rounded-xl p-6 overflow-auto">
                                         {children}
                                     </div>
                                 </div>

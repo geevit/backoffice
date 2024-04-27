@@ -84,7 +84,7 @@ export default function CardPage() {
                     </div>
                     <div className="flex flex-col gap-3 w-full">
                         <SectionTitle title="Détails" />
-                        <div className="flex gap-4 w-full">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
                             <div className="flex bg-white flex-1 rounded-2xl flex-col items-start p-5 gap-4">
                                 <p className="font-ro-semibold text-leaf">
                                     Informations générales
