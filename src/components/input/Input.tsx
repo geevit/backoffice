@@ -5,6 +5,7 @@ interface InputProps {
     Icon?: React.FC<any>;
     name?: string;
     defaultValue?: string;
+    optionnal?: boolean;
 }
 
 export const Input = ({
@@ -12,6 +13,7 @@ export const Input = ({
     Icon,
     name = "null",
     defaultValue = "",
+    optionnal = false,
 }: InputProps) => {
     return (
         <div className="relative">
@@ -26,6 +28,11 @@ export const Input = ({
             />
             {Icon && (
                 <Icon className="absolute left-4 top-3 text-leaf size-4" />
+            )}
+            {optionnal && (
+                <span className="absolute right-4 top-3 text-leaf/70 text-xs font-ro-semibold">
+                    Facultatif
+                </span>
             )}
         </div>
     );

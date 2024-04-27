@@ -33,7 +33,12 @@ export default function CardPage() {
         card && (
             <div>
                 <div className="flex flex-col gap-6 items-start w-full">
-                    <PageTitle title={`Carte ${card?.cardNumber ?? ""}`} />
+                    <PageTitle
+                        title={`Carte ${card?.cardNumber.replace(
+                            /(.{4})/g,
+                            "$1 "
+                        )}`}
+                    />
                     <div className="flex flex-col gap-3 w-full">
                         <SectionTitle title="Actions rapides" />
                         <div className="flex gap-4 w-full">
@@ -68,7 +73,10 @@ export default function CardPage() {
                                         Numéro de carte
                                     </p>
                                     <p className="font-ro-semibold text-leaf">
-                                        {card?.cardNumber}
+                                        {card?.cardNumber.replace(
+                                            /(.{4})/g,
+                                            "$1 "
+                                        )}
                                     </p>
                                 </div>
                                 <div className="flex flex-col">

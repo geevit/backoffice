@@ -6,6 +6,7 @@ import { PageTitle } from "@geevit/components/ui/PageTitle";
 import { SectionTitle } from "@geevit/components/ui/SectionTitle";
 import { BlocageModal } from "@geevit/src/components/modals/BlocageModal";
 import { EncaissementModal } from "@geevit/src/components/modals/EncaissementModal";
+import { NewCardModal } from "@geevit/src/components/modals/NewCardModal";
 import { SelectShopSheet } from "@geevit/src/components/sheets/SelectShopSheet";
 import { useActiveShops } from "@geevit/src/contexts/ActiveShopContext";
 import { useAuth } from "@geevit/src/contexts/AuthContext";
@@ -67,7 +68,6 @@ export default function CardsPage() {
         <div className="flex flex-col gap-6 items-start">
             <div className="flex justify-between items-center w-full">
                 <PageTitle title="Gestion des cartes" />
-
                 <SelectShopSheet />
             </div>
             <SectionTitle title="Actions rapides" />
@@ -78,8 +78,7 @@ export default function CardsPage() {
                     disabled={false}
                     title="Bloquer une carte"
                 />
-                <FastActionButton title="Nouvelle carte" />
-                <FastActionButton title="Réception de cartes" />
+                <NewCardModal refreshData={refresh} disabled={false} />
             </div>
             <SectionTitle title="Cartes" />
             {cards && (
