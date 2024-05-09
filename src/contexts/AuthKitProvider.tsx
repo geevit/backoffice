@@ -7,7 +7,7 @@ import AuthProvider from "react-auth-kit/AuthProvider";
 const store = createStore({
     authName: "__auth",
     authType: "cookie",
-    cookieDomain: "localhost",
+    cookieDomain: process.env.NEXT_PUBLIC_COOKIE_DOMAIN,
     cookieSecure: false,
 });
 
