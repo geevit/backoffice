@@ -6,7 +6,8 @@ import { PageTitle } from "@geevit/components/ui/PageTitle";
 import { SectionTitle } from "@geevit/components/ui/SectionTitle";
 import { BlocageModal } from "@geevit/src/components/modals/BlocageModal";
 import { EncaissementModal } from "@geevit/src/components/modals/EncaissementModal";
-import { NewCardModal } from "@geevit/src/components/modals/NewCardModal";
+import { NewPhysicalModal } from "@geevit/src/components/modals/NewPhysicalModal";
+import { NewVirtualModal } from "@geevit/src/components/modals/NewVirtualModal";
 import { SelectShopSheet } from "@geevit/src/components/sheets/SelectShopSheet";
 import { useActiveShops } from "@geevit/src/contexts/ActiveShopContext";
 import { useAuth } from "@geevit/src/contexts/AuthContext";
@@ -78,7 +79,8 @@ export default function CardsPage() {
                     disabled={false}
                     title="Bloquer une carte"
                 />
-                <NewCardModal refreshData={refresh} disabled={false} />
+                <NewPhysicalModal refreshData={refresh} disabled={false} />
+                <NewVirtualModal refreshData={refresh} disabled={false} />
             </div>
             <SectionTitle title="Cartes" />
             {cards && (
