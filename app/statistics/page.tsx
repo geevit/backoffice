@@ -64,60 +64,60 @@ export default function ProfilePage() {
             </div>
             <SectionTitle title="Statistiques générales" />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-4 ">
-                <div className="bg-white rounded-2xl p-8 flex flex-col justify-end flex-1 gap-1">
-                    <h3 className="font-ro-heavy text-leaf text-5xl">
+                <div className="bg-white rounded-2xl p-6 flex flex-col justify-end flex-1 gap-1">
+                    <h3 className="font-ro-heavy text-leaf text-3xl">
                         {statistics?.soldCardsCount}
                     </h3>
                     <h1 className="font-ro-bold text-leaf">Cartes vendues</h1>
                 </div>
-                <div className="bg-white rounded-2xl p-8 flex flex-col justify-end flex-1 gap-1">
-                    <h3 className="font-ro-heavy text-leaf text-5xl">
+                <div className="bg-white rounded-2xl p-6 flex flex-col justify-end flex-1 gap-1">
+                    <h3 className="font-ro-heavy text-leaf text-3xl">
                         {statistics?.totalAmountSold.toFixed(2)} €
                     </h3>
                     <h1 className="font-ro-bold text-leaf">
                         Montant total des cartes vendues
                     </h1>
                 </div>
-                <div className="bg-white rounded-2xl p-8 flex flex-col justify-end flex-1 gap-1">
-                    <h3 className="font-ro-heavy text-leaf text-5xl">
+                <div className="bg-white rounded-2xl p-6 flex flex-col justify-end flex-1 gap-1">
+                    <h3 className="font-ro-heavy text-leaf text-3xl">
                         {statistics?.expiredCardsCount}
                     </h3>
                     <h1 className="font-ro-bold text-leaf">Cartes expirées</h1>
                 </div>
-                <div className="bg-white rounded-2xl p-8 flex flex-col justify-end flex-1 gap-1">
-                    <h3 className="font-ro-heavy text-leaf text-5xl">
+                <div className="bg-white rounded-2xl p-6 flex flex-col justify-end flex-1 gap-1">
+                    <h3 className="font-ro-heavy text-leaf text-3xl">
                         {statistics?.totalAmountExpired.toFixed(2)} €
                     </h3>
                     <h1 className="font-ro-bold text-leaf">
                         Montant total des cartes expirées
                     </h1>
                 </div>
-                <div className="bg-white rounded-2xl p-8 flex flex-col justify-end flex-1 gap-1">
-                    <h3 className="font-ro-heavy text-leaf text-5xl">
+                <div className="bg-white rounded-2xl p-6 flex flex-col justify-end flex-1 gap-1">
+                    <h3 className="font-ro-heavy text-leaf text-3xl">
                         {statistics?.totalActualCards}
                     </h3>
                     <h1 className="font-ro-bold text-leaf">
                         Cartes en cirulation
                     </h1>
                 </div>
-                <div className="bg-white rounded-2xl p-8 flex flex-col justify-end flex-1 gap-1">
-                    <h3 className="font-ro-heavy text-leaf text-5xl">
+                <div className="bg-white rounded-2xl p-6 flex flex-col justify-end flex-1 gap-1">
+                    <h3 className="font-ro-heavy text-leaf text-3xl">
                         {statistics?.totalActualAmount.toFixed(2)} €
                     </h3>
                     <h1 className="font-ro-bold text-leaf">
                         Montant total des cartes en cirulation
                     </h1>
                 </div>
-                <div className="bg-white rounded-2xl p-8 flex flex-col justify-end flex-1 gap-1">
-                    <h3 className="font-ro-heavy text-leaf text-5xl">
+                <div className="bg-white rounded-2xl p-6 flex flex-col justify-end flex-1 gap-1">
+                    <h3 className="font-ro-heavy text-leaf text-3xl">
                         {statistics?.totalActualCards}
                     </h3>
                     <h1 className="font-ro-bold text-leaf">
                         Paiements encaissés
                     </h1>
                 </div>
-                <div className="bg-white rounded-2xl p-8 flex flex-col justify-end flex-1 gap-1">
-                    <h3 className="font-ro-heavy text-leaf text-5xl">
+                <div className="bg-white rounded-2xl p-6 flex flex-col justify-end flex-1 gap-1">
+                    <h3 className="font-ro-heavy text-leaf text-3xl">
                         10.00 €
                     </h3>
                     <h1 className="font-ro-bold text-leaf">
@@ -128,16 +128,16 @@ export default function ProfilePage() {
             <SectionTitle title="Classement de mes commerces" />
             <div className="h-4"></div>
             <div className="flex gap-4 items-end">
-                <div className="bg-white rounded-2xl p-8 flex flex-col justify-end flex-1 gap-1 h-72">
-                    <h3 className="font-ro-heavy text-leaf text-5xl">2e</h3>
+                <div className="bg-white rounded-2xl p-6 flex flex-col justify-end flex-1 gap-1 h-72">
+                    <h3 className="font-ro-heavy text-leaf text-3xl">2e</h3>
                     <h1 className="font-ro-bold text-leaf">Nom du shop</h1>
                 </div>
-                <div className="bg-white rounded-2xl p-8 flex flex-col justify-end flex-1 gap-1 h-80">
-                    <h3 className="font-ro-heavy text-leaf text-5xl">1er</h3>
+                <div className="bg-white rounded-2xl p-6 flex flex-col justify-end flex-1 gap-1 h-80">
+                    <h3 className="font-ro-heavy text-leaf text-3xl">1er</h3>
                     <h1 className="font-ro-bold text-leaf">Nom du shop</h1>
                 </div>
-                <div className="bg-white rounded-2xl p-8 flex flex-col justify-end flex-1 gap-1 h-60">
-                    <h3 className="font-ro-heavy text-leaf text-5xl">3e</h3>
+                <div className="bg-white rounded-2xl p-6 flex flex-col justify-end flex-1 gap-1 h-60">
+                    <h3 className="font-ro-heavy text-leaf text-3xl">3e</h3>
                     <h1 className="font-ro-bold text-leaf">Nom du shop</h1>
                 </div>
             </div>
