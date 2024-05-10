@@ -5,9 +5,12 @@
   ];
   idx.extensions = [
     
-  ];
+  
+ "bradlc.vscode-tailwindcss"
+ "dsznajder.es7-react-js-snippets"];
   env = {
     NEXT_PUBLIC_API_URL="https://api.int.geev.it";
+    NEXT_PUBLIC_DOMAIN_URL=".cloudworkstations.dev";
   };
   idx.previews = {
     previews = {

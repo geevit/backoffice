@@ -7,19 +7,21 @@ export interface NavBarButtonProps {
     title: string;
     Icon?: FC<any>;
     href?: string;
+    center?: boolean
 }
 
 export const NavBarItem: FC<NavBarButtonProps> = ({
     title,
     Icon,
     href = "/",
+    center = false
 }: NavBarButtonProps) => {
     const pathname = usePathname();
     return (
         <Link
             onClick={() => {}}
             href={href}
-            className="hover:bg-leaf-hover py-2.5 px-6 rounded-lg cursor-pointer flex gap-3 items-center w-full">
+            className={`hover:bg-leaf-hover py-2.5 px-6 rounded-lg cursor-pointer flex gap-3 items-center w-full ${center && "justify-center"}`}>
             {Icon && (
                 <Icon
                     size={22}

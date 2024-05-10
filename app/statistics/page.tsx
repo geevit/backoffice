@@ -6,6 +6,7 @@ import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
 import Head from "next/head";
 import { useActiveShops } from "@geevit/src/contexts/ActiveShopContext";
 import { SelectShopSheet } from "@geevit/src/components/sheets/SelectShopSheet";
+import { PeriodSelectorWrapper } from "@geevit/src/components/selector/PeriodSelectorWrapper";
 
 export default function ProfilePage() {
     const [statistics, setStatistics] = useState<{
@@ -19,6 +20,7 @@ export default function ProfilePage() {
         salesAmountOfShopTwo: number;
         salesAmountOfShopThree: number;
     }>();
+    const [period, setPeriod] = useState<"DAY" | "MONTH" | "YEAR">("YEAR");
 
     const { activeShops } = useActiveShops();
 
@@ -37,7 +39,7 @@ export default function ProfilePage() {
         activeShops.forEach((as) => {
             url.searchParams.append("shopIds", as);
         });
-        url.searchParams.append("range", "YEAR");
+        url.searchParams.append("range", period);
         return await fetch(url, config).then(async (res) => {
             const data = await res.json();
             setStatistics(data);
@@ -58,9 +60,11 @@ export default function ProfilePage() {
     return (
         <div className="flex flex-col gap-4">
             <div className="flex justify-between items-center w-full">
-                <PageTitle title="Statistiques" />
-
-                <SelectShopSheet />
+                <PageTitle title={`Statistiques ${period === "DAY" ? "du jour" : period === "MONTH" ? "de ce mois" : "de l'année"}`} /> 
+                <div className="flex gap-2">
+                    <PeriodSelectorWrapper setPeriod={setPeriod} activePeriod={period} />
+                    <SelectShopSheet />
+                </div>
             </div>
             <SectionTitle title="Statistiques générales" />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-4 ">

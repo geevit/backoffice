@@ -17,6 +17,7 @@ export default function DashboardPage() {
             <div className="bg-white p-6 rounded-2xl mt-4 w-content flex flex-col">
                 <span className="font-ro-semibold text-leaf">TODO :</span>
                 <span className="font-ro-semibold text-leaf">- Fix activeShop context not persisting</span>
+                <span className="font-ro-semibold text-leaf">- Fix bad sizes in selector and "Jour"</span>
             </div>
         </NextAuth>
     );
