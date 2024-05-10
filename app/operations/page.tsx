@@ -4,6 +4,10 @@ import { Paginated } from "@geevit/components/pagination/Paginated";
 import { FastActionButton } from "@geevit/components/ui/FastActionButton";
 import { PageTitle } from "@geevit/components/ui/PageTitle";
 import { SectionTitle } from "@geevit/components/ui/SectionTitle";
+import { BlocageModal } from "@geevit/src/components/modals/BlocageModal";
+import { EncaissementModal } from "@geevit/src/components/modals/EncaissementModal";
+import { NewPhysicalModal } from "@geevit/src/components/modals/NewPhysicalModal";
+import { NewVirtualModal } from "@geevit/src/components/modals/NewVirtualModal";
 import { SelectShopSheet } from "@geevit/src/components/sheets/SelectShopSheet";
 import { useActiveShops } from "@geevit/src/contexts/ActiveShopContext";
 import { useAuth } from "@geevit/src/contexts/AuthContext";
@@ -66,10 +70,15 @@ export default function CardsPage() {
             </div>
             <SectionTitle title="Actions rapides" />
             <div className="w-full flex gap-4">
-                <FastActionButton title="Encaissement" />
-                <FastActionButton title="Nouvelle carte" />
-                <FastActionButton title="Bloquer une carte" />
-                <FastActionButton title="Réception de cartes" />
+  
+                <EncaissementModal refreshData={refreshData} disabled={false} />
+                <BlocageModal
+                    refreshData={refreshData}
+                    disabled={false}
+                    title="Bloquer une carte"
+                />
+                <NewPhysicalModal refreshData={refreshData} disabled={false} />
+                <NewVirtualModal refreshData={refreshData} disabled={false} />
             </div>
             <SectionTitle title="Opérations" />
             {operations && (

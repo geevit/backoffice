@@ -9,7 +9,7 @@ import { ConnectedAs } from "./ConnectedAs";
 export const Navbar: FC = () => {
     return (
         <>
-            <div className="h-full flex-1 flex-col gap-16 mr-3 hidden md:flex">
+            <div className="h-full flex-1 flex-col gap-16 mr-3 hidden md:flex min-w-72">
                 <div className="p-6">
                     <GeevitLogo />
                 </div>
